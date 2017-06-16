@@ -1,0 +1,10 @@
+
+
+{% for object in object_list %}
+{{ object.id }}
+{{ object.user }}
+{{ object.content }}
+
+{ % empty % }<p>No Tweets yet </p>
+
+{% endfor %}
