@@ -8,8 +8,11 @@ from django.views.generic import DetailView , ListView
 class TweetDetailView(DetailView):
 	# template_name = "tweets/detail_view.html" #tweet_detail.html
 	queryset = Tweet.objects.all()
-	def get_object(self):
-		return Tweet.objects.get(id = 1)
+
+	#managed by django itself !!! 
+	# def get_object(self):
+	# 	pk = self.kwargs.get("pk") # obtained from url 
+	# 	return Tweet.objects.get(id = pk)
 
 class TweetListView(ListView):
 	# template_name = "tweets/list_view.html" #tweet_list.html
