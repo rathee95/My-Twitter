@@ -7,6 +7,7 @@ from django.forms.utils import ErrorList
 from .mixins import FormUserNeededMixin , UserOwnerMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.db.models import Q
 # Create your views here.
 #CRUD List/Search
 
@@ -46,7 +47,15 @@ class TweetDetailView(DetailView):
 
 class TweetListView(ListView):
 	# template_name = "tweets/list_view.html" #tweet_list.html
-	queryset = Tweet.objects.all()
+	def get_queryset(self , *args , **kwargs):
+		qs = Tweet.objects.all()
+		query = self.request.GET.get("q",None)
+		if query is not None:
+			qs = qs.filter(
+				Q (content__icontains = query ) | 
+				Q (user__username__icontains = query )
+				)
+		return qs
 
 #now how do the template gets "context" from the class based views?
 	# def get_context_data() -->see documentation
