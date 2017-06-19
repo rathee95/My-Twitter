@@ -1,0 +1,5 @@
+<form class="form" method="POST" action="">
+    {% csrf_token %}
+	<p>Are you sure you wish to delete the tweet :  "{{ object }}"?</p>
+    <input type="submit" value="Confirm" />
+</form>

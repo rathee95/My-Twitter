@@ -1,11 +1,12 @@
 from django import forms 
 from django.shortcuts import render
 from .models import Tweet
-from django.views.generic import DetailView , ListView , CreateView ,UpdateView
+from django.views.generic import DetailView , DeleteView,ListView , CreateView ,UpdateView
 from .forms import TweetModelForm
 from django.forms.utils import ErrorList
 from .mixins import FormUserNeededMixin , UserOwnerMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 # Create your views here.
 #CRUD List/Search
 
@@ -51,11 +52,10 @@ class TweetListView(ListView):
 	# def get_context_data() -->see documentation
 
 
-
-
-
-
-
+class TweetDeleteView(LoginRequiredMixin,DeleteView):
+	model = Tweet
+	template_name="tweets/delete_confirm.html"
+	success_url = reverse_lazy("home")
 
 
 
