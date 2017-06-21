@@ -57,8 +57,14 @@ class TweetListView(ListView):
 				)
 		return qs
 
+	def get_context_data(self, *args , **kwargs):
+		context = super(TweetListView,self).get_context_data(*args , **kwargs)
+		context['create_form'] = TweetModelForm()
+		context['create_url'] =  reverse_lazy("tweet:create")
+		return context
+
 #now how do the template gets "context" from the class based views?
-	# def get_context_data() -->see documentation
+	
 
 
 class TweetDeleteView(LoginRequiredMixin,DeleteView):
