@@ -81,6 +81,37 @@
         fetchTweets()
 
 
+        var charsStart = 140;
+        var charsCurrent = 0;
+        $("#tweet-form").append("<span id='tweetCharsLeft'>"+ charsStart + "</span>")
+
+        $("#tweet-form textarea").keyup(function(event){
+
+            var tweetValue = $(this).val()
+            charsCurrent = charsStart - tweetValue.length
+            var spanChars = $("#tweetCharsLeft")
+            spanChars.text(charsCurrent)
+
+            if(charsCurrent>0)
+            {
+                spanChars.removeClass("red-color")
+                spanChars.removeClass("grey-color")
+            }
+            else if(charsCurrent == 0)
+            {
+                spanChars.removeClass("red-color")
+                spanChars.addClass("grey-color")
+            }
+            else 
+            {
+                spanChars.removeClass("grey-color")
+                spanChars.addClass("red-color")
+            }
+
+        })
+
+
+
 
         $("#tweet-form").submit(function(event)
         {
@@ -88,27 +119,35 @@
             var this_ = $(this)
          
             var formData = this_.serialize();
-            $.ajax({
-
-            url:"/api/tweet/create/" , //to our api
-            data:formData,
-            method:"POST",
-            success: function(data)
+            if(charsCurrent>=0)
             {
-                // console.log(data)
-                attachTweet(data,true)
-                this_.find("input[type=text], textarea").val("")
-                // fetchTweets()   
-            },
-            error:function(data)
-            {   
-                console.log("error"),
-                console.log(data),
-                console.log(data.status)
+                $.ajax({
 
+                url:"/api/tweet/create/" , //to our api
+                data:formData,
+                method:"POST",
+                success: function(data)
+                {
+                    // console.log(data)
+                    attachTweet(data,true)
+                    this_.find("input[type=text], textarea").val("")
+                    // fetchTweets()   
+                },
+                error:function(data)
+                {   
+                    console.log("error"),
+                    console.log(data),
+                    console.log(data.status)
+
+                }
+
+                })   
             }
-
-            })
+            else 
+            {
+                console.log("Tweet is too long")
+            }
+            
         } )
     });
 </script>
