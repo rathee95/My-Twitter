@@ -20,6 +20,8 @@
  
         var query = getParameterByName('q')
         var tweetList = [];
+        var nextTweetUrl;
+
 
         function attachTweet(tweetValue,prepend)
         {
@@ -56,18 +58,38 @@
         }
                 
 
-        function fetchTweets()
+        function fetchTweets(url)
         {
+            var fetchUrl;
+            if(!url)
+            {
+                fetchUrl = "/api/tweet/" 
+            }
+            else 
+            {
+                fetchUrl = url
+            }
+
             $.ajax({
 
-            url:"/api/tweet/?q=" + query, //to our api
+            url:fetchUrl, //to our api
             data:{
                 'q': query
             },
             method:"GET",
             success: function(data)
             {
-                tweetList = data;
+                tweetList = data.results;
+                if(data.next)
+                {
+                    nextTweetUrl = data.next;                    
+                }
+                else
+                {
+                    $("#loadmore").css("display","none")
+                }
+
+
                 parseTweet()
             },
             error:function(data)
@@ -80,6 +102,15 @@
         }
         fetchTweets()
 
+        $("#loadmore").click(function(event){
+
+            event.preventDefault()
+            if(nextTweetUrl)
+            {
+                fetchTweets(nextTweetUrl)
+            }
+
+        })
 
         var charsStart = 140;
         var charsCurrent = 0;
@@ -173,7 +204,7 @@
 
         <div id="tweet-container">
         </div>
-
+        <a href="#" id="loadmore">Load More Tweets</a>
 
         <!--DOING THIS VIA JS AND AJAX SO THAT WE DONT NEED TO RELOAD THE PAGE WHEN A NEW TWEET IS MADE !!! -->
 <!--         {% for object in object_list %}
