@@ -2,6 +2,7 @@
 <div class="row">
     <div class="col-sm-3 col-xs-12 " style="background-color: red">
         <h1>{{ object.username }}</h1>
+        <p>Followers: {{ object.followed_by.count }}</p>
     </div>
     <div class="col-sm-9 col-xs-12">
 
@@ -10,6 +11,24 @@
     {{ tweet }} <br/>
 
     {% endfor %}
+    <hr/>
+    <h1>Following  </h1>
+    {% for user in object.profile.following.all %}
+    <a href="/{{user.username}}">
+    {{ user.username }} </a><br/>
+    {% empty %}
+    <h3>Not following any user</h3>
+    {% endfor %}
+
+    <hr/>
+    <h1>Followers  </h1>
+    {% for profile in object.followed_by.all %}
+    <a href="/{{ profile.user.username }}">
+    {{ profile.user.username }}</a> <br/>
+    {% empty %}
+    <h3>Not followed by  any user</h3>
+    {% endfor %}
+
 
 
     </div>
