@@ -1,5 +1,5 @@
 from django import forms 
-from django.shortcuts import render
+from django.shortcuts import render , redirect , get_object_or_404
 from .models import Tweet
 from django.views.generic import DetailView , DeleteView,ListView , CreateView ,UpdateView
 from .forms import TweetModelForm
@@ -8,9 +8,17 @@ from .mixins import FormUserNeededMixin , UserOwnerMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.db.models import Q
+from django.views import View
+from django.http import HttpResponseRedirect
 # Create your views here.
 #CRUD List/Search
-
+class RetweetView(View):
+	def get(self,request,pk,*args,**kwargs):
+		tweet = get_object_or_404(Tweet,pk = pk)
+		if request.user.is_authenticated():
+			new_tweet = Tweet.objects.retweet(request.user , tweet)
+			return HttpResponseRedirect(new_tweet.get_absolute_url())
+		return tweet.get_absolute_url()
 
 class TweetCreateView(FormUserNeededMixin,CreateView):
 	form_class  = TweetModelForm
