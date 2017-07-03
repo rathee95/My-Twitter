@@ -17,7 +17,7 @@ class RetweetView(View):
 		tweet = get_object_or_404(Tweet,pk = pk)
 		if request.user.is_authenticated():
 			new_tweet = Tweet.objects.retweet(request.user , tweet)
-			return HttpResponseRedirect(new_tweet.get_absolute_url())
+			return HttpResponseRedirect("/") 
 		return tweet.get_absolute_url()
 
 class TweetCreateView(FormUserNeededMixin,CreateView):
