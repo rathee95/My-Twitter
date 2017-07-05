@@ -1,4 +1,17 @@
-{% extends "base.html" %} {% block title %} Detailed Tweet | {{ block.super}}{% endblock title %} {% block content %}
+{% extends "base.html" %} 
+{% block script %}
+
+<script>
+
+    //this function gets query strign values in js without any plugins 
+
+  
+    $(document).ready(function(){
+       loadTweetContainer("tweet-container") 
+    });
+</script>
+{% endblock script %}
+{% block title %} Detailed Tweet | {{ block.super}}{% endblock title %} {% block content %}
 <div class="row">
     <div class="col-sm-3 col-xs-12 " style="background-color: white">
         <h1>{{ object.username }}</h1>
@@ -12,10 +25,16 @@
     <div class="col-sm-9 col-xs-12">
 
     <h1>Tweets</h1>
-    {% for tweet in object.tweet_set.all %}
-    {{ tweet }} <br/>
 
-    {% endfor %}
+
+            <div id="tweet-container" data-url='/api/{{ object.username }}/tweet/'>
+
+        </div>
+        <a href="#" id="loadmore">Load More Tweets</a>
+        
+
+
+
     <hr/>
     <h1>Following <small> {{ object.profile.get_following.count  }} </small></h1>
     {% for user in object.profile.get_following %}
