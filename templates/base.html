@@ -84,8 +84,12 @@
                 success:function(data)
                 {
                     console.log(data)
-                    attachTweet(data,true,true)
-                    updateHashLinks()
+                    if(initialUrl = '/api/tweet/') // show retweet only on the main tweetlist not on user page 
+                    {
+                        attachTweet(data,true,true)
+                        updateHashLinks()
+                    }
+
                 },
                 error:function(data)
                 {
