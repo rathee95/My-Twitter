@@ -6,6 +6,7 @@ from django.utils.timesince import timesince
 
 
 class ParentTweetModelSerializer(serializers.ModelSerializer):
+	
 	user = UserDisplaySerializer(read_only = True)
 	date_display = serializers.SerializerMethodField()
 	timesince = serializers.SerializerMethodField()
@@ -38,6 +39,7 @@ class ParentTweetModelSerializer(serializers.ModelSerializer):
 
 
 class TweetModelSerializer(serializers.ModelSerializer):
+	parent_id = serializers.CharField(write_only=True, required=False)
 	user = UserDisplaySerializer(read_only = True)
 	date_display = serializers.SerializerMethodField()
 	timesince = serializers.SerializerMethodField()
@@ -47,7 +49,7 @@ class TweetModelSerializer(serializers.ModelSerializer):
 	
 	class Meta:
 		model = Tweet
-		fields = ['id','user','content','timestamp','date_display','timesince','parent','did_like','likes','reply']
+		fields = ['parent_id','id','user','content','timestamp','date_display','timesince','parent','did_like','likes','reply']
 	
 	def get_did_like(self, obj):
 		request = self.context.get('request')
