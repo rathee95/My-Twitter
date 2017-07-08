@@ -1,11 +1,26 @@
-{% extends "base.html" %} {% block title %} Detailed Tweet | {{ block.super}}{% endblock title %} {% block content %}
+{% extends "base.html" %} 
+{% block script %}
+
+<script>
+
+    //this function gets query strign values in js without any plugins 
+
+  
+    $(document).ready(function(){
+       loadTweetContainer("tweet-container" , {{ object.id }} ) 
+    });
+</script>
+{% endblock script %}
+
+{% block title %} Detailed Tweet | {{ block.super}}{% endblock title %} {% block content %}
 <div class="row">
     <div class="col-sm-3 col-xs-12 ">
         <h1>{{ object.user }}</h1>
     </div>
     <div class="col-sm-9 col-xs-12">
-        {{ object.content }}
-        <br/> {{ object.timestamp|timesince }}
+        <div id='tweet-container'>
+        </div>
+
     </div>
 </div>
 {% endblock content %}

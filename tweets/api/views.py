@@ -34,12 +34,26 @@ class RetweetAPIView(APIView):
 		return Response({"nessage":message},status = 400)
 
 
-class TweetCreateAPIView(generics.CreateAPIView):
-		serializer_class = TweetModelSerializer
-		permission_classes = [permissions.IsAuthenticated]
+class TweetDetailAPIView(generics.ListAPIView):
+	queryset = Tweet.objects.all()
+	pagination_class = StandardResultsPagination
 
-		def perform_create(self,serializer):
-			serializer.save(user = self.request.user)
+	serializer_class = TweetModelSerializer
+	permission_classes = [permissions.AllowAny]
+
+	def get_queryset(self, *args, **kwargs):
+		tweet_id = self.kwargs.get("pk")
+		qs = Tweet.objects.filter(pk=tweet_id)
+		return qs
+
+class TweetCreateAPIView(generics.CreateAPIView):
+	serializer_class = TweetModelSerializer
+	permission_classes = [permissions.IsAuthenticated]
+
+	def perform_create(self,serializer):
+		serializer.save(user = self.request.user)
+
+
 
 class TweetListAPIView(generics.ListAPIView):
 	pagination_class = StandardResultsPagination
