@@ -29,7 +29,7 @@ class TweetCreateView(FormUserNeededMixin,CreateView):
 
 	#done in mixins.py FormUserNeededMixin
 	# def form_valid(self,form):
-	# 	if self.request.user.is_authenticated():
+	# 	if self.request.user.is_authenticated()
 	# 		form.instance.user = self.request.user
 	# 		return super(TweetCreateView,self).form_valid(form)
 	# 	else:
@@ -44,7 +44,7 @@ class TweetUpdateView(LoginRequiredMixin,UserOwnerMixin,UpdateView):
 	template_name = "tweets/update_view.html"
 
 
-class TweetDetailView(DetailView):
+class TweetDetailView(LoginRequiredMixin,DetailView):
 	# template_name = "tweets/detail_view.html" #tweet_detail.html
 	queryset = Tweet.objects.all()
 
@@ -53,7 +53,7 @@ class TweetDetailView(DetailView):
 	# 	pk = self.kwargs.get("pk") # obtained from url 
 	# 	return Tweet.objects.get(id = pk)
 
-class TweetListView(ListView):
+class TweetListView(LoginRequiredMixin,ListView):
 	# template_name = "tweets/list_view.html" #tweet_list.html
 	def get_queryset(self , *args , **kwargs):
 		qs = Tweet.objects.all()

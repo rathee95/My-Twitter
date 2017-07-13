@@ -1,6 +1,6 @@
 from .views import UserDetailView, UserFollowView
 
-from django.conf.urls import url
+from django.conf.urls import url , include
 from django.views.generic.base import RedirectView
 
 
