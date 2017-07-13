@@ -9,13 +9,13 @@ AWS_QUERYSTRING_AUTH = True
 DEFAULT_FILE_STORAGE = 'tweetme.aws.utils.MediaRootS3BotoStorage'
 STATICFILES_STORAGE = 'tweetme.aws.utils.StaticRootS3BotoStorage'
 AWS_STORAGE_BUCKET_NAME = 'itweetrathee'
-S3DIRECT_REGION = 'us-west-2'
+S3DIRECT_REGION = 'ap-south-1'
 S3_URL = '//%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 MEDIA_URL = '//%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
 MEDIA_ROOT = MEDIA_URL
 STATIC_URL = S3_URL + 'static/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
-
+AWS_QUERYSTRING_AUTH = False
 
 
 two_months = datetime.timedelta(days=61)
