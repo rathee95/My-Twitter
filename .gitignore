@@ -3,7 +3,7 @@ venv
 staticfiles
 .env
 
-tweetme/settings/local.py
+tweetme/settings/local2.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
