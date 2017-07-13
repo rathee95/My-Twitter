@@ -15,6 +15,8 @@ MEDIA_URL = '//%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
 MEDIA_ROOT = MEDIA_URL
 STATIC_URL = S3_URL + 'static/'
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+AWS_S3_HOST = 's3.ca-central-1.amazonaws.com'
+
 
 two_months = datetime.timedelta(days=61)
 date_two_months_later = datetime.date.today() + two_months
