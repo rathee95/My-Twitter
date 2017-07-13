@@ -6,6 +6,7 @@ from django.views import View
 from .models import UserProfile
 from django.views.generic.edit import FormView
 from .forms import UserRegisterForm
+from django.contrib.auth.decorators import login_required
 
 
 User = get_user_model()
@@ -23,7 +24,6 @@ class UserRegisterView(FormView):
 		new_user.set_password(password)
 		new_user.save()
 		return super(UserRegisterView,self).form_valid(form)
-
 
 class UserDetailView(DetailView):
 	template_name = 'accounts/user_detail.html'
