@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% load recommended %}
+<style>
+#tweet-container {
+}
+</style>
+
 {% block script %}
 
 <script>
@@ -23,11 +28,14 @@
         <h1>{{ request.user }}</h1>
         <hr/>
         <br/>
-
-        <p class="maroon-color" >Recommended to Follow :</p>
+        <p class="maroon-color" >Recommended Users</p>
+       
         {% recommended request.user %}
+
+        <br/>
     </div>
-    <div class="col-sm-9">
+
+    <div class="col-sm-9 col-xs-12">
         {% if not request.GET.q %}
             <div class="">
             {% include "tweets/form.html" with form=create_form action_url=create_url btn_title='Tweet !!' form_class='tweet-form' %}
