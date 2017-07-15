@@ -102,10 +102,11 @@
                         this_.text("Like")
                     }
                 } ,
-                error: function(sata)
+                error: function(data)
                 {
                     console.log("error")
                     console.log(data)
+                    alert("Login required")
                 }
 
             })
@@ -179,7 +180,10 @@
                 error:function(data)
                 {
                     console.log("error")
-                    console.log(data)
+                    respondText1 = data.responseText
+                    alert(respondText1)
+                    // console.log(respondText1)
+
                 }
             })
 
@@ -233,10 +237,11 @@
             }
 
             if(tweetValue.parent && !isReply)
-            {   
-                replyvia = tweetValue.user.url
+            {
+                temp = tweetValue
+                tempdate = tweetValue.date_display
                 tweetValue = tweetValue.parent
-                preContent =  "<span class='red-color'> retweeted  via <a href = '" + replyvia+ "'> " + request.user.username + "</a> on "+ tweetValue.date_display + "</span> <br/>" 
+                preContent =  "<span class='red-color'> retweeted  via <a href = '" + temp.user.url+ "'> " + temp.user.username + "</a> on "+ temp.date_display  + "</span> <br/>" 
             }
             else if(tweetValue.parent && isReply)
             {
