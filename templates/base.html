@@ -233,9 +233,10 @@
             }
 
             if(tweetValue.parent && !isReply)
-            {
+            {   
+                replyvia = tweetValue.user.url
                 tweetValue = tweetValue.parent
-                preContent =  "<span class='red-color'> retweeted  via <a href = '" + tweetValue.user.url+ "'> " + tweetValue.user.username + "</a> on "+ tweetValue.date_display + "</span> <br/>" 
+                preContent =  "<span class='red-color'> retweeted  via <a href = '" + replyvia+ "'> " + request.user.username + "</a> on "+ tweetValue.date_display + "</span> <br/>" 
             }
             else if(tweetValue.parent && isReply)
             {
