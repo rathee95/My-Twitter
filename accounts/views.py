@@ -7,6 +7,7 @@ from .models import UserProfile
 from django.views.generic.edit import FormView
 from .forms import UserRegisterForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 User = get_user_model()
@@ -25,7 +26,7 @@ class UserRegisterView(FormView):
 		new_user.save()
 		return super(UserRegisterView,self).form_valid(form)
 
-class UserDetailView(DetailView):
+class UserDetailView(LoginRequiredMixin,DetailView):
 	template_name = 'accounts/user_detail.html'
 	queryset= User.objects.all()
 
